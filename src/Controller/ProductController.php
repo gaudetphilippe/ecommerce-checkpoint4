@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProductController extends AbstractController
 {
@@ -33,7 +35,9 @@ class ProductController extends AbstractController
     /**
      * @route("/{category_slug}/{slug}", name="product_show")
      */
-    public function show($slug, ProductRepository $productRepository) {
+    public function show($slug, ProductRepository $productRepository, UrlGeneratorInterface $urlGenerator) {
+
+
         $product = $productRepository->findOneBy([
             'slug' => $slug
         ]);
@@ -43,7 +47,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'urlGenerator' => $urlGenerator
         ]);
     }
 }
