@@ -83,7 +83,7 @@ class ProductController extends AbstractController
 
             $em->persist($product);
             $em->flush();
-            dd($product);
+            dd($product);gi
         }
 
         $formView = $form->createView();
